@@ -65,8 +65,7 @@ bindsym $mod+b exec --no-startup-id firefox
 bindsym $mod+Return exec --no-startup-id alacritty
 
 # -- bindsym -- screenshots
-bindsym $mod+p exec --no-startup-id maim --select "/home/$USER/Pictures/$(date)"
-bindsym $mod+Shift+p exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+bindsym $mod+p exec --no-startup-id maim --select "/home/$USER/Pictures/$(date).jpg"
 
 # -- bindsym -- audio --
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
