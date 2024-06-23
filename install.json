@@ -81,7 +81,11 @@
     "i3status.conf": ".config/i3status",
     "volumeicon": ".config/volumeicon",
     "pip.conf": ".config/pip",
-    "config.jsonc": ".config/fastfetch"
+    "config.jsonc": ".config/fastfetch",
+    "lightdm-gtk-greeter.conf": "/etc/lightdm",
+    "wallpaper.jpg": "Pictures",
+    "wallpaper.jpg": "/etc/lightdm",
+    "avatar.jpg": "/etc/lightdm"
   }
 
 }
