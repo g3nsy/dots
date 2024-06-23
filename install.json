@@ -2,7 +2,6 @@
   "proglist": [
     "base-devel",
     "bash-completion",
-    "catfish",
     "clang",
     "cmake",
     "dosfstools",
