@@ -41,19 +41,20 @@ def install_configs() -> None:
 def install_scripts() -> None:
     scripts_dir = os.path.join(HERE, "scripts")
     dst = os.path.join(HOME, ".local/bin")
-    os.makedirs(dst, exist_ok=True)
+    os.system(f"mkdir -pv {dst}")
     for script in os.listdir(scripts_dir):
         os.system(f"cp -rfv {os.path.join(scripts_dir, script)} {dst}")
 
 
 def install_fonts() -> None:
-    os.makedirs(os.path.join(HOME, ".local/share/fonts"), exist_ok=True)
-    fonts_dir = os.path.join(HERE, "fonts")
-    for filename in os.listdir(fonts_dir):
+    fonts_dst_dir = os.path.join(HOME, ".local/share/fonts")
+    fonts_src_dir = os.path.join(HERE, "fonts")
+    os.system(f"mkdir -pv {fonts_dst_dir}")
+    for filename in os.listdir(fonts_src_dir):
         os.system(
             'unzip '
-            f'-o {os.path.join(fonts_dir, filename)} '
-            f'-d {os.path.join(HOME, ".local/share/fonts")}'
+            f'-o {os.path.join(fonts_src_dir, filename)} '
+            f'-d {fonts_dst_dir}'
         )
     os.system("fc-cache -fv")
 
