@@ -13,18 +13,6 @@ with open(os.path.join(HERE, "install.json"), mode="r", encoding="UTF-8") as f:
     install_config = json.load(f)
 
 
-def install_theme() -> None:
-    theme_dir = os.path.join(HERE, "theme")
-
-    curso = os.path.join(theme_dir, "cursor.tar.gz")
-    icons = os.path.join(theme_dir, "icons.tar.xz")
-    theme = os.path.join(theme_dir, "theme.tar.xz")
-
-    os.system(f"sudo tar -v -xf {curso} -C /usr/share/icons/")
-    os.system(f"sudo tar -v -xf {icons} -C /usr/share/icons/")
-    os.system(f"sudo tar -v -xf {theme} -C /usr/share/themes/")
-
-
 def install_programs() -> None:
     os.system(f'sudo pacman --needed -S {" ".join(install_config["proglist"])}')
 
@@ -42,11 +30,11 @@ def install_configs() -> None:
     for src, dst in install_config["configs"].items():
         src_dir = os.path.join(HERE, "configs")
         if dst.startswith("/"):
-            os.system(f"sudo mkdir {dst}")
+            os.system(f"sudo mkdir -pv {dst}")
             os.system(f"sudo cp -rfv {os.path.join(src_dir, src)} {dst}")
         else:
             dst = os.path.join(HOME, dst)
-            os.makedirs(dst, exist_ok=True)
+            os.system(f"mkdir -pv {dst}")
             os.system(f"cp -rfv {os.path.join(src_dir, src)} {dst}")
 
 
@@ -74,21 +62,28 @@ def install_pylibs() -> None:
     os.system(f"pip install {' '.join(install_config['pylibs'])}")
 
 
+def install_theme() -> None:
+    theme_dir = os.path.join(HERE, "theme")
+
+    curso = os.path.join(theme_dir, "cursor.tar.gz")
+    icons = os.path.join(theme_dir, "icons.tar.xz")
+    theme = os.path.join(theme_dir, "theme.tar.xz")
+
+    os.system(f"sudo tar -v -xf {curso} -C /usr/share/icons/")
+    os.system(f"sudo tar -v -xf {icons} -C /usr/share/icons/")
+    os.system(f"sudo tar -v -xf {theme} -C /usr/share/themes/")
+
+
 def extra_config():
     os.system("curl -sS https://starship.rs/install.sh | sh")
     os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
     os.system("~/.tmux/plugins/tpm/scripts/install_plugins.sh")
 
 
-def main() -> None:
-    install_programs()
-    install_configs()
-    install_scripts()
-    install_theme()
-    install_fonts()
-    install_pylibs()
-    extra_config()
-
-
-if __name__ == "__main__":
-    main()
+install_programs()
+install_configs()
+install_scripts()
+install_theme()
+install_fonts()
+install_pylibs()
+extra_config()
