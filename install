@@ -40,10 +40,14 @@ def install_programs() -> None:
 
 def install_configs() -> None:
     for src, dst in install_config["configs"].items():
-        dst = os.path.join(HOME, dst)
-        os.makedirs(dst, exist_ok=True)
         src_dir = os.path.join(HERE, "configs")
-        os.system(f"cp -rfv {os.path.join(src_dir, src)} {dst}")
+        if dst.startswith("/"):
+            os.system(f"sudo mkdir {dst}")
+            os.system(f"sudo cp -rfv {os.path.join(src_dir, src)} {dst}")
+        else:
+            dst = os.path.join(HOME, dst)
+            os.makedirs(dst, exist_ok=True)
+            os.system(f"cp -rfv {os.path.join(src_dir, src)} {dst}")
 
 
 def install_scripts() -> None:
