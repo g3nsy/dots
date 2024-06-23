@@ -1,0 +1,9 @@
+[user]
+	email = g3nsydev@gmail.com
+	name = g3nsy
+[init]
+	defaultBranch = main
+[pull]
+	rebase = false
+[http]
+	postBuffer = 157286400

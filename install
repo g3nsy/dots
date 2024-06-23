@@ -1,0 +1,90 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+import os
+import json
+import shutil
+
+
+HOME = os.path.expanduser("~")
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+
+with open(os.path.join(HERE, "install.json"), mode="r", encoding="UTF-8") as f:
+    install_config = json.load(f)
+
+
+def install_theme() -> None:
+    theme_dir = os.path.join(HERE, "theme")
+
+    curso = os.path.join(theme_dir, "cursor.tar.gz")
+    icons = os.path.join(theme_dir, "icons.tar.xz")
+    theme = os.path.join(theme_dir, "theme.tar.xz")
+
+    os.system(f"sudo tar -v -xf {curso} -C /usr/share/icons/")
+    os.system(f"sudo tar -v -xf {icons} -C /usr/share/icons/")
+    os.system(f"sudo tar -v -xf {theme} -C /usr/share/themes/")
+
+
+def install_programs() -> None:
+    os.system(f'sudo pacman --needed -S {" ".join(install_config["proglist"])}')
+
+    if shutil.which("yay") is None:
+        yay_path = os.path.join(HERE, "yay")
+        os.system(
+            f"git clone https://aur.archlinux.org/yay.git {yay_path} "
+            f"&& cd {yay_path} && makepkg -si && rm -rfv {yay_path}"
+        )
+
+    os.system(f'yay --needed -S {" ".join(install_config["aurproglist"])}')
+
+
+def install_configs() -> None:
+    for src, dst in install_config["configs"].items():
+        dst = os.path.join(HOME, dst)
+        os.makedirs(dst, exist_ok=True)
+        src_dir = os.path.join(HERE, "configs")
+        os.system(f"cp -rfv {os.path.join(src_dir, src)} {dst}")
+
+
+def install_scripts() -> None:
+    scripts_dir = os.path.join(HERE, "scripts")
+    dst = os.path.join(HOME, ".local/bin")
+    os.makedirs(dst, exist_ok=True)
+    for script in os.listdir(scripts_dir):
+        os.system(f"cp -rfv {os.path.join(scripts_dir, script)} {dst}")
+
+
+def install_fonts() -> None:
+    os.makedirs(os.path.join(HOME, ".local/share/fonts"), exist_ok=True)
+    fonts_dir = os.path.join(HERE, "fonts")
+    for filename in os.listdir(fonts_dir):
+        os.system(
+            'unzip '
+            f'-o {os.path.join(fonts_dir, filename)} '
+            f'-d {os.path.join(HOME, ".local/share/fonts")}'
+        )
+    os.system("fc-cache -fv")
+
+
+def install_pylibs() -> None:
+    os.system(f"pip install {' '.join(install_config['pylibs'])}")
+
+
+def extra_config():
+    os.system("curl -sS https://starship.rs/install.sh | sh")
+    os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
+    os.system("~/.tmux/plugins/tpm/scripts/install_plugins.sh")
+
+
+def main() -> None:
+    install_programs()
+    install_configs()
+    install_scripts()
+    install_theme()
+    install_fonts()
+    install_pylibs()
+    extra_config()
+
+
+if __name__ == "__main__":
+    main()
