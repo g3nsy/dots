@@ -72,6 +72,7 @@
   "configs": {
     ".bashrc": "",
     ".tmux.conf": "",
+    ".vimrc": "",
     "hotkeys.json": ".config/musikcube",
     "alacritty.toml": ".config/alacritty",
     "tlh.toml": ".config/alacritty",
