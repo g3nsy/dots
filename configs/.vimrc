@@ -23,3 +23,7 @@ set smartcase
 
 " remove trailing whitespace from Python files "
 autocmd BufWritePre *.py :%s/\s\+$//e
+
+" remap
+nnoremap <C-h> :wincmd h<CR>
+nnoremap <C-l> :wincmd l<CR>
