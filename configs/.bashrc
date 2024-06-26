@@ -35,7 +35,7 @@ fi
 
 export PATH=/home/g3nsy/.local/bin:$PATH
 export TERM='xterm-256color'
-export EDITOR='nvim'
-export VISUAL='nvim'
+export EDITOR='vim'
+export VISUAL='vim'
 
 eval "$(starship init bash)"
