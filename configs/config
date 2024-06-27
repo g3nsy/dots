@@ -157,6 +157,11 @@ set $ws10 "10"
 
 # -- status bar --
 bar {
-	status_command i3status --config ~/.config/i3status/i3status.conf
-	position bottom
+    colors {
+        background #000000
+        statusline #66ff66
+        separator  #666666
+    }
+        status_command i3status --config ~/.config/i3status/i3status.conf
+        position bottom
 }
