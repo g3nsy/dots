@@ -14,7 +14,7 @@ with open(os.path.join(HERE, "install.json"), mode="r", encoding="UTF-8") as f:
 
 
 def install_programs() -> None:
-    os.system(f'sudo pacman --needed -S {" ".join(install_config["proglist"])}')
+    os.system(f'sudo pacman --needed -S {" ".join(install_config["programs"])}')
 
     if shutil.which("yay") is None:
         yay_path = os.path.join(HERE, "yay")
@@ -23,7 +23,7 @@ def install_programs() -> None:
             f"&& cd {yay_path} && makepkg -si && rm -rfv {yay_path}"
         )
 
-    os.system(f'yay --needed -S {" ".join(install_config["aurproglist"])}')
+    os.system(f'yay --needed -S {" ".join(install_config["aur"])}')
 
 
 def install_configs() -> None:
@@ -59,8 +59,8 @@ def install_fonts() -> None:
     os.system("fc-cache -fv")
 
 
-def install_pylibs() -> None:
-    os.system(f"pip install {' '.join(install_config['pylibs'])}")
+def install_python_libs() -> None:
+    os.system(f"pip install {' '.join(install_config['python'])}")
 
 
 def install_theme() -> None:
@@ -86,5 +86,5 @@ install_configs()
 install_scripts()
 install_theme()
 install_fonts()
-install_pylibs()
+install_python_libs()
 extra_config()
