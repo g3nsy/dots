@@ -1,6 +1,6 @@
 # -- i3 basic configurations --
 set $mod Mod4
-font pango:Hack Nerd Font 8
+font pango:Hack Nerd Font 9
 hide_edge_borders smart
 for_window [class="^.*"] border pixel 3
 gaps inner 10
@@ -20,10 +20,10 @@ exec --no-startup-id thunderbird
 # exec --no-startup-id blueman-applet &
 
 # -- personal scripts --
-exec --no-startup-id python ~/.local/bin/alternating_layouts
+exec --no-startup-id python ~/Code/config/scripts/alternating_layouts
 # exec --no-startup-id python ~/.local/bin/i3_screens_auto
 # exec --no-startup-id python ~/.local/bin/nvidia_temp
-#
+
 # -- workaround to 'minimize on tray' in i3 --
 for_window [class="thunderbird"] move container to workspace $ws10
 
@@ -157,6 +157,7 @@ set $ws10 "10"
 
 # -- status bar --
 bar {
+    mode hide
     colors {
         background #000000
         statusline #66ff66
