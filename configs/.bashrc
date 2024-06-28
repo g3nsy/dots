@@ -33,7 +33,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH=/home/g3nsy/.local/bin:$PATH
+export PATH=~/.local/bin:~/Code/configs/scripts:$PATH
 export TERM='xterm-256color'
 export EDITOR='vim'
 export VISUAL='vim'

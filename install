@@ -38,14 +38,6 @@ def install_configs() -> None:
             os.system(f"cp -rfv {os.path.join(src_dir, src)} {dst}")
 
 
-def install_scripts() -> None:
-    scripts_dir = os.path.join(HERE, "scripts")
-    dst = os.path.join(HOME, ".local/bin")
-    os.system(f"mkdir -pv {dst}")
-    for script in os.listdir(scripts_dir):
-        os.system(f"cp -rfv {os.path.join(scripts_dir, script)} {dst}")
-
-
 def install_fonts() -> None:
     fonts_dst_dir = os.path.join(HOME, ".local/share/fonts")
     fonts_src_dir = os.path.join(HERE, "fonts")
@@ -83,7 +75,6 @@ def extra_config():
 
 install_programs()
 install_configs()
-install_scripts()
 install_theme()
 install_fonts()
 install_python_libs()
