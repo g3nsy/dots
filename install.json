@@ -55,6 +55,7 @@
   ],
 
   "aur": [
+    "apvlv",
     "drawio-desktop-bin",
     "musikcube-bin",
     "syncthing-gtk",
