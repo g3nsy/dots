@@ -1,5 +1,5 @@
 {
-  "proglist": [
+  "programs": [
     "base-devel",
     "bash-completion",
     "clang",
@@ -54,14 +54,14 @@
     "zip"
   ],
 
-  "aurproglist": [
+  "aur": [
     "drawio-desktop-bin",
     "musikcube-bin",
     "syncthing-gtk",
     "tgpt-bin"
   ],
 
-  "pylibs": [
+  "python": [
     "i3ipc"
   ],
 
