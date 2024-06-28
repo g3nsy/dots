@@ -83,8 +83,6 @@
     "pip.conf": ".config/pip",
     "config.jsonc": ".config/fastfetch",
     "lightdm-gtk-greeter.conf": "/etc/lightdm",
-    "wallpaper.jpg": "/etc/lightdm",
-    "avatar.jpg": "/etc/lightdm",
     "index.theme": ".icons/default"
   }
 
