@@ -1,0 +1,15 @@
+#!/bin/bash
+
+check_battery() {
+    BATTERY_PERCENT=$(acpi -b | awk '{print $4}' | tr -d '%,')
+
+    # Check if battery is below 10%
+    if [ "$BATTERY_PERCENT" -lt "10" ]; then
+        notify-send "Your battery is almost dead. Please charge soon." -u critical
+    fi
+}
+
+while true; do
+    check_battery
+    sleep 30
+done
