@@ -1,5 +1,6 @@
 {
   "programs": [
+    "acpi",
     "base-devel",
     "bash-completion",
     "clang",
