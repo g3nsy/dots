@@ -21,6 +21,7 @@ exec --no-startup-id thunderbird
 
 # -- personal scripts --
 exec --no-startup-id python ~/Code/config/scripts/alternating_layouts
+exec --no-startup-id ~/Code/config/scripts/battery
 # exec --no-startup-id python ~/.local/bin/i3_screens_auto
 # exec --no-startup-id python ~/.local/bin/nvidia_temp
 
