@@ -1,7 +1,6 @@
 #!/bin/bash
 
 while true; do
-    temperature=$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader)
-    echo "$temperature""000" > /tmp/gpu_temp
+    echo $(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader) > /tmp/gpu_tmp
     sleep 5
 done
