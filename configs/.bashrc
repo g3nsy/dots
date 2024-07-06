@@ -39,3 +39,5 @@ export EDITOR='vim'
 export VISUAL='vim'
 
 eval "$(starship init bash)"
+
+set -o vi
