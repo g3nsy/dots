@@ -14,23 +14,19 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id setxkbmap -option ctrl:nocaps
 exec --no-startup-id dunst
 exec --no-startup-id sleep 2 && volumeicon
-exec --no-startup-id thunderbird
 # exec --no-startup-id iwctl device wlan0 set-property Powered off
 # exec --no-startup-id optimus-manager-qt
 # exec --no-startup-id blueman-applet &
 
 # -- personal scripts --
-exec --no-startup-id python ~/Code/config/scripts/alternating_layouts
-exec --no-startup-id ~/Code/config/scripts/battery
-# exec --no-startup-id python ~/.local/bin/i3_screens_auto
-# exec --no-startup-id python ~/.local/bin/nvidia_temp
-
-# -- workaround to 'minimize on tray' in i3 --
-for_window [class="thunderbird"] move container to workspace $ws10
+exec --no-startup-id python ~/Codes/archlinux-config/scripts/alternating_layouts
+exec --no-startup-id ~/Codes/archlinux-config/scripts/battery
+# exec --no-startup-id python ~/Codes/archlinux-config/scripts/i3_screens_auto
+# exec --no-startup-id ~/Codes/archlinux-config/scripts/nvidia_temp
 
 # -- scratchpad -- terminal --
 for_window [instance="terminal"] floating enable
-for_window [instance="terminal"] resize set 800 800
+for_window [instance="terminal"] resize set 800 600
 for_window [instance="terminal"] move scratchpad
 for_window [instance="terminal"] border pixel 5
 bindsym $mod+t [instance="terminal"] scratchpad show; [instance="terminal"] move position center
@@ -38,7 +34,7 @@ bindsym $mod+Shift+t exec --no-startup-id alacritty --class terminal
 
 # -- scratchpad -- gpt --
 for_window [instance="gpt"] floating enable
-for_window [instance="gpt"] resize set 800 800
+for_window [instance="gpt"] resize set 800 600
 for_window [instance="gpt"] move scratchpad
 for_window [instance="gpt"] border pixel 5
 bindsym $mod+g [instance="gpt"] scratchpad show; [instance="gpt"] move position center
@@ -46,7 +42,7 @@ bindsym $mod+Shift+g exec --no-startup-id alacritty --class gpt --command tgpt -
 
 # -- scratchpad -- musikcube --
 for_window [instance="musikcube"] floating enable
-for_window [instance="musikcube"] resize set 800 800
+for_window [instance="musikcube"] resize set 800 600
 for_window [instance="musikcube"] move scratchpad
 for_window [instance="musikcube"] border pixel 5
 bindsym $mod+m [instance="musikcube"] scratchpad show; [instance="musikcube"] move position center
@@ -159,11 +155,6 @@ set $ws10 "10"
 # -- status bar --
 bar {
     mode hide
-    colors {
-        background #000000
-        statusline #66ff66
-        separator  #666666
-    }
-        status_command i3status --config ~/.config/i3status/i3status.conf
-        position bottom
+    status_command i3status --config ~/.config/i3status/i3status.conf
+    position bottom
 }
