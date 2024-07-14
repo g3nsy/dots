@@ -1,19 +1,21 @@
 {
   "programs": [
     "acpi",
+    "arc-gtk-theme",
+    "arc-icon-theme",
+    "archlinux-wallpaper",
     "base-devel",
     "bash-completion",
+    "capitaine-cursors",
     "clang",
     "cmake",
     "dosfstools",
     "dunst",
     "fastfetch",
-    "fd",
     "feh",
     "firefox",
     "flake8",
     "git",
-    "gparted",
     "gvfs",
     "jdk-openjdk",
     "keepassxc",
@@ -22,6 +24,7 @@
     "man-db",
     "mpv",
     "mypy",
+    "neovim",
     "noto-fonts-emoji",
     "npm",
     "pavucontrol",
@@ -29,18 +32,19 @@
     "perl-file-mimeinfo",
     "pyright",
     "python-pip",
+    "qbittorrent",
     "ranger",
     "ruby",
     "ruff",
     "rust",
     "sox",
+    "starship",
     "tcl",
     "thunar",
     "thunar-archive-plugin",
     "thunar-volman",
-    "thunderbird",
     "tmux",
-    "transmission-gtk",
+    "ttf-hack-nerd",
     "tumbler",
     "udisks2",
     "unrar",
@@ -57,14 +61,16 @@
 
   "aur": [
     "apvlv",
-    "drawio-desktop-bin",
     "musikcube-bin",
-    "syncthing-gtk",
-    "tgpt-bin"
+    "tgpt-bin",
+    "alacritty-themes"
   ],
 
   "python": [
-    "i3ipc"
+    "i3ipc",
+    "yt-dlp",
+    "ctube",
+    "poetry"
   ],
 
   "configs": {
@@ -76,7 +82,6 @@
     "settings.ini": ".config/gtk-3.0",
     "hotkeys.json": ".config/musikcube",
     "alacritty.toml": ".config/alacritty",
-    "tlh.toml": ".config/alacritty",
     ".gitconfig": "",
     "config": ".config/i3",
     "i3status.conf": ".config/i3status",

@@ -3,6 +3,8 @@
 import os
 import json
 import shutil
+import signal
+import subprocess as sp
 
 
 HOME = os.path.expanduser("~")
@@ -14,68 +16,59 @@ with open(os.path.join(HERE, "install.json"), mode="r", encoding="UTF-8") as f:
 
 
 def install_programs() -> None:
-    os.system(f'sudo pacman --needed -S {" ".join(install_config["programs"])}')
+    os.system(
+        f'sudo pacman -S {" ".join(install_config["programs"])} '
+        '--needed --noconfirm --overwrite "*"'
+    )
 
     if shutil.which("yay") is None:
         yay_path = os.path.join(HERE, "yay")
+        if os.path.exists(yay_path):
+            os.system(f"rm -rfv {yay_path}")
         os.system(
             f"git clone https://aur.archlinux.org/yay.git {yay_path} "
             f"&& cd {yay_path} && makepkg -si && rm -rfv {yay_path}"
         )
 
-    os.system(f'yay --needed -S {" ".join(install_config["aur"])}')
+    os.system(
+        f'yay -S {" ".join(install_config["aur"])} '
+        '--needed --noconfirm'
+    )
 
 
-def install_configs() -> None:
+def install_configs(symlink: bool = True) -> None:
+    base_cmd = f'cp -rv --remove-destination {"--symbolic-link" if symlink else ""}'
     for src, dst in install_config["configs"].items():
         src_dir = os.path.join(HERE, "configs")
         if dst.startswith("/"):
             os.system(f"sudo mkdir -pv {dst}")
-            os.system(f"sudo cp -rfv {os.path.join(src_dir, src)} {dst}")
+            os.system(f"sudo {base_cmd} {os.path.join(src_dir, src)} {dst}")
         else:
             dst = os.path.join(HOME, dst)
             os.system(f"mkdir -pv {dst}")
-            os.system(f"cp -rfv {os.path.join(src_dir, src)} {dst}")
-
-
-def install_fonts() -> None:
-    fonts_dst_dir = os.path.join(HOME, ".local/share/fonts")
-    fonts_src_dir = os.path.join(HERE, "fonts")
-    os.system(f"mkdir -pv {fonts_dst_dir}")
-    for filename in os.listdir(fonts_src_dir):
-        os.system(
-            'unzip '
-            f'-o {os.path.join(fonts_src_dir, filename)} '
-            f'-d {fonts_dst_dir}'
-        )
-    os.system("fc-cache -fv")
+            os.system(f"{base_cmd} {os.path.join(src_dir, src)} {dst}")
 
 
 def install_python_libs() -> None:
     os.system(f"pip install {' '.join(install_config['python'])}")
 
 
-def install_theme() -> None:
-    theme_dir = os.path.join(HERE, "theme")
-
-    curso = os.path.join(theme_dir, "cursor.tar.gz")
-    icons = os.path.join(theme_dir, "icons.tar.xz")
-    theme = os.path.join(theme_dir, "theme.tar.xz")
-
-    os.system(f"sudo tar -v -xf {curso} -C /usr/share/icons/")
-    os.system(f"sudo tar -v -xf {icons} -C /usr/share/icons/")
-    os.system(f"sudo tar -v -xf {theme} -C /usr/share/themes/")
-
-
-def extra_config():
-    os.system("curl -sS https://starship.rs/install.sh | sh")
+def extra_config() -> None:
     os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
     os.system("~/.tmux/plugins/tpm/scripts/install_plugins.sh")
 
 
-install_programs()
-install_configs()
-install_theme()
-install_fonts()
-install_python_libs()
-extra_config()
+def main() -> None:
+    # uts_cmd = f"while true; do sudo -v; sleep 60; done &"
+    # uts_pro = sp.Popen(uts_cmd, shell=True, preexec_fn=os.setsid)
+
+    # opts
+    install_programs()
+    install_configs(symlink=False)
+    install_python_libs() 
+    extra_config()
+
+    # os.killpg(os.getpgid(uts_pro.pid), signal.SIGTERM)
+
+
+main()

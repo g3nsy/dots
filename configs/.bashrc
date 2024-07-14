@@ -1,7 +1,3 @@
-#
-# ~/.bashrc
-#
-
 # If not running interactively, don't do anything.
 [[ $- != *i* ]] && return
 
@@ -18,11 +14,12 @@ shopt -s checkwinsize
 # aliases.
 alias glog="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all"
 alias ls='ls --color=auto'
+alias mv='mv -i'
+alias rm='rm -i'
 alias grep='grep --color=auto'
 alias gpt='tgpt --interactive'
-alias build='python setup.py sdist bdist_wheel'
+alias pacman='pacman --color=auto'
 alias paclean='pacman -Qtdq | sudo pacman -Rns -'
-alias update='git add . && git commit -m "update" && git push'
 
 # enable programmable completion features.
 if ! shopt -oq posix; then
@@ -33,10 +30,10 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH=~/.local/bin:~/Code/configs/scripts:$PATH
-export TERM='xterm-256color'
-export EDITOR='vim'
-export VISUAL='vim'
+export PATH=~/.local/bin:~/Codes/archlinux-config/scripts:$PATH
+export TERM=xterm-256color
+export EDITOR=vim
+export VISUAL=vim
 
 eval "$(starship init bash)"
 
