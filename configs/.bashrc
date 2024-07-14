@@ -20,6 +20,8 @@ alias grep='grep --color=auto'
 alias gpt='tgpt --interactive'
 alias pacman='pacman --color=auto'
 alias paclean='pacman -Qtdq | sudo pacman -Rns -'
+alias wlan0-on='iwctl device wlan0 set-property Powered on'
+alias wlan0-off='iwctl device wlan0 set-property Powered off'
 
 # enable programmable completion features.
 if ! shopt -oq posix; then
