@@ -1,4 +1,4 @@
-import = ["~/.config/alacritty/tlh.toml"]
+import = ["~/.config/alacritty/wombat.toml"]
 
 [cursor]
 blink_interval = 500
