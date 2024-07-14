@@ -23,6 +23,7 @@
     "keepassxc",
     "less",
     "lightdm",
+    "lightdm-gtk-greeter",
     "maim",
     "man-db",
     "mpv",
@@ -61,7 +62,6 @@
     "wget",
     "xarchiver",
     "xclip",
-    "xorg-xrandr",
     "xss-lock",
     "zip"
   ],
