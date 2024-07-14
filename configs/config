@@ -15,14 +15,12 @@ exec --no-startup-id setxkbmap -option ctrl:nocaps
 exec --no-startup-id dunst
 exec --no-startup-id sleep 2 && volumeicon
 # exec --no-startup-id iwctl device wlan0 set-property Powered off
-# exec --no-startup-id optimus-manager-qt
 # exec --no-startup-id blueman-applet &
 
 # -- personal scripts --
 exec --no-startup-id python ~/Codes/archlinux-config/scripts/alternating_layouts
 exec --no-startup-id ~/Codes/archlinux-config/scripts/battery
 # exec --no-startup-id python ~/Codes/archlinux-config/scripts/i3_screens_auto
-# exec --no-startup-id ~/Codes/archlinux-config/scripts/nvidia_temp
 
 # -- scratchpad -- terminal --
 for_window [instance="terminal"] floating enable
@@ -154,7 +152,6 @@ set $ws10 "10"
 
 # -- status bar --
 bar {
-    mode hide
     status_command i3status --config ~/.config/i3status/i3status.conf
-    position bottom
+    position top
 }
