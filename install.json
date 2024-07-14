@@ -41,7 +41,7 @@
     "pyright",
     "python-pip",
     "qbittorrent",
-    "ranger",
+    "felix-rs",
     "ruby",
     "ruff",
     "rust",

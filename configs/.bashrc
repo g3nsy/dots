@@ -22,6 +22,8 @@ alias pacman='pacman --color=auto'
 alias paclean='pacman -Qtdq | sudo pacman -Rns -'
 alias wlan0-on='iwctl device wlan0 set-property Powered on'
 alias wlan0-off='iwctl device wlan0 set-property Powered off'
+alias config='vim ~/Codes/archlinux-config'
+alias fx='felix'
 
 # enable programmable completion features.
 if ! shopt -oq posix; then
