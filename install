@@ -3,8 +3,6 @@
 import os
 import json
 import shutil
-import signal
-import subprocess as sp
 
 
 HOME = os.path.expanduser("~")
@@ -40,12 +38,13 @@ def install_configs(symlink: bool = True) -> None:
     base_cmd = f'cp -rv --remove-destination {"--symbolic-link" if symlink else ""}'
     for src, dst in install_config["configs"].items():
         src_dir = os.path.join(HERE, "configs")
+        dst_father = os.path.dirname(dst)
         if dst.startswith("/"):
-            os.system(f"sudo mkdir -pv {dst}")
+            os.system(f"sudo mkdir -pv {dst_father}")
             os.system(f"sudo {base_cmd} {os.path.join(src_dir, src)} {dst}")
         else:
             dst = os.path.join(HOME, dst)
-            os.system(f"mkdir -pv {dst}")
+            os.system(f"mkdir -pv {dst_father}")
             os.system(f"{base_cmd} {os.path.join(src_dir, src)} {dst}")
 
 
@@ -67,6 +66,8 @@ def main() -> None:
     install_configs(symlink=False)
     install_python_libs() 
     extra_config()
+
+    os.system("sudo grub-mkconfig -o /boot/grub/grub.cfg")
 
     # os.killpg(os.getpgid(uts_pro.pid), signal.SIGTERM)
 

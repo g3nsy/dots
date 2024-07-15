@@ -82,22 +82,24 @@
   ],
 
   "configs": {
-    ".bashrc": "",
-    ".tmux.conf": "",
-    ".vimrc": "",
-    ".gtkrc-2.0": "",
-    ".apvlvrc": "",
-    "settings.ini": ".config/gtk-3.0",
-    "hotkeys.json": ".config/musikcube",
-    "alacritty.toml": ".config/alacritty",
-    ".gitconfig": "",
-    "config": ".config/i3",
-    "i3status.conf": ".config/i3status",
-    "volumeicon": ".config/volumeicon",
-    "pip.conf": ".config/pip",
-    "config.jsonc": ".config/fastfetch",
-    "lightdm-gtk-greeter.conf": "/etc/lightdm",
-    "index.theme": ".icons/default"
+    "bash": ".bashrc",
+    "vim": ".vimrc",
+    "tmux": ".tmux.conf",
+    "apvlv": ".apvlvrc",
+    "gtk-2": ".gtkrc-2.0",
+    "gtk-3": ".config/gtk-3.0/settings.ini",
+    "musikcube": ".config/musikcube/hotkeys.json",
+    "alacritty": ".config/alacritty/alacritty.toml",
+    "git": ".gitconfig",
+    "i3": ".config/i3/config",
+    "i3status": ".config/i3status/i3status.conf",
+    "i3blocks": ".config/i3blocks/config",
+    "volumeicon": ".config/volumeicon/volumeicon",
+    "pip": ".config/pip/pip.conf",
+    "fastfetch": ".config/fastfetch/config.jsonc",
+    "lightdm": "/etc/lightdm/lightdm-gtk-greeter.conf",
+    "cursor": ".icons/default/index.theme",
+    "grub": "/etc/default/grub"
   }
 
 }

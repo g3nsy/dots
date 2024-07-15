@@ -44,3 +44,5 @@ export VISUAL=vim
 eval "$(starship init bash)"
 
 set -o vi
+
+fastfetch --logo archlinux_small
