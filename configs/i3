@@ -2,8 +2,8 @@
 set $mod Mod4
 font pango:Hack Nerd Font 9
 for_window [class="^.*"] border pixel 4
-gaps inner 10
-gaps outer 0
+gaps inner 13
+gaps outer 8
 set $refresh_i3status killall -SIGUSR1 i3status
 floating_modifier $mod
 
@@ -12,11 +12,9 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -c 000000 --nofork
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id dunst
 exec --no-startup-id sleep 2 && volumeicon
-exec --no-startup-id iwctl device wlan0 set-property Powered off
 exec --no-startup-id picom -b
 exec --no-startup-id blueman-applet &
 
-for_window [instance="pavucontrol"] floating enable
 for_window [instance="blueman-manager"] floating enable
 
 # -- personal scripts --
@@ -31,6 +29,14 @@ for_window [instance="terminal"] move scratchpad
 for_window [instance="terminal"] border pixel 5
 bindsym $mod+t [instance="terminal"] scratchpad show; [instance="terminal"] move position center
 bindsym $mod+Shift+t exec --no-startup-id alacritty --class terminal
+
+# -- scratchpad -- pulsemixer --
+for_window [instance="pulsemixer"] floating enable
+for_window [instance="pulsemixer"] resize set 800 300
+for_window [instance="pulsemixer"] move scratchpad
+for_window [instance="pulsemixer"] border pixel 5
+bindsym $mod+a [instance="pulsemixer"] scratchpad show; [instance="pulsemixer"] move position center
+bindsym $mod+Shift+a exec --no-startup-id alacritty --class pulsemixer --command pulsemixer
 
 # -- scratchpad -- gpt --
 for_window [instance="gpt"] floating enable
@@ -153,6 +159,7 @@ set $ws10 "10"
 
 # -- status bar --
 bar {
+    mode hide
     status_command i3status
-    position top
+    position bottom
 }
