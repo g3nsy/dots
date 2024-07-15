@@ -12,18 +12,18 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -c 000000 --nofork
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id setxkbmap -option ctrl:nocaps
 exec --no-startup-id dunst
-# exec --no-startup-id sleep 2 && volumeicon
-# exec --no-startup-id iwctl device wlan0 set-property Powered off
-# exec --no-startup-id picom -b
-# exec --no-startup-id blueman-applet &
+exec --no-startup-id sleep 2 && volumeicon
+exec --no-startup-id iwctl device wlan0 set-property Powered off
+exec --no-startup-id picom -b
+exec --no-startup-id blueman-applet &
 
 for_window [instance="pavucontrol"] floating enable
-# for_window [instance="blueman-manager"] floating enable
+for_window [instance="blueman-manager"] floating enable
 
 # -- personal scripts --
 exec --no-startup-id python ~/Codes/archlinux-config/scripts/alternating_layouts
 exec --no-startup-id ~/Codes/archlinux-config/scripts/battery
-# exec --no-startup-id python ~/Codes/archlinux-config/scripts/i3_screens_auto
+exec --no-startup-id python ~/Codes/archlinux-config/scripts/i3_screens_auto
 
 # -- scratchpad -- terminal --
 for_window [instance="terminal"] floating enable
