@@ -51,7 +51,6 @@
     "unrar",
     "unzip",
     "vi",
-    "volumeicon",
     "wget",
     "wireplumber",
     "xclip",
@@ -92,8 +91,7 @@
     "pip": ".config/pip/pip.conf",
     "tmux": ".tmux.conf",
     "touchpad": "/etc/X11/xorg.conf.d/40-libinput.conf",
-    "vim": ".vimrc",
-    "volumeicon": ".config/volumeicon/volumeicon"
+    "vim": ".vimrc"
   }
 
 }
