@@ -39,6 +39,7 @@ alias nvim-remove='rm -rv\
   ~/.local/share/nvim\
   ~/.local/state/nvim\
   ~/.cache/nvim'
+alias poetry-register='poetry config pypi-token.pypi'
 alias fx='felix'
 
 # enable programmable completion features.
