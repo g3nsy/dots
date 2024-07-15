@@ -12,7 +12,17 @@ HISTFILESIZE=200
 shopt -s checkwinsize
 
 # aliases.
-alias glog="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all"
+alias glog="git log\
+  --graph\
+  --abbrev-commit\
+  --decorate\
+  --format=format:'\
+ %C(bold blue)%h%C(reset) -\
+ %C(bold green)(%ar)%C(reset)\
+ %C(white)%s%C(reset)\
+ %C(dim white)-\
+ %an%C(reset)%C(auto)%d%C(reset)'\
+ --all"
 alias ls='ls --color=auto'
 alias mv='mv -i'
 alias rm='rm -i'
@@ -25,6 +35,10 @@ alias wlan0-off='iwctl device wlan0 set-property Powered off'
 alias config='vim ~/Codes/archlinux-config'
 alias install='sudo pacman -S'
 alias remove='sudo pacman -R'
+alias nvim-remove='rm -rv\
+  ~/.local/share/nvim\
+  ~/.local/state/nvim\
+  ~/.cache/nvim'
 alias fx='felix'
 
 # enable programmable completion features.
