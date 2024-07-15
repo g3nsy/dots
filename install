@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import sys
 import os
 import json
 import shutil
@@ -62,8 +63,16 @@ def extra_config() -> None:
 
 
 def main() -> None:
+    if len(sys.argv) > 1:
+        if sys.argv[1] in ("-s", "--symlink"):
+            symlink = True
+        else:
+            print(f"Invalid argument: {sys.argv[1]}")
+            sys.exit(1)
+    else:
+        symlink = False
     install_programs()
-    install_configs(symlink=False)
+    install_configs(symlink=symlink)
     install_python_libs()
     extra_config()
 
