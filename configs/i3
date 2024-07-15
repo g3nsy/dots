@@ -154,7 +154,6 @@ set $ws10 "10"
 
 # -- status bar --
 bar {
-    # status_command i3status --config ~/.config/i3status/i3status.conf
-    # status_command SCRIPT_DIR=~/Codes/archlinux-config/scripts i3blocks
+    status_command i3status
     position top
 }

@@ -43,7 +43,10 @@ def install_configs(symlink: bool = True) -> None:
             os.system(f"sudo mkdir -pv {dst_father}")
             os.system(f"sudo {base_cmd} {os.path.join(src_dir, src)} {dst}")
         else:
-            dst = os.path.join(HOME, dst)
+            if not os.path.isabs(dst):
+                dst = os.path.join(HOME, dst)
+            if not os.path.isabs(dst_father):
+                dst_father = os.path.join(HOME, dst_father)
             os.system(f"mkdir -pv {dst_father}")
             os.system(f"{base_cmd} {os.path.join(src_dir, src)} {dst}")
 
@@ -55,21 +58,14 @@ def install_python_libs() -> None:
 def extra_config() -> None:
     os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
     os.system("~/.tmux/plugins/tpm/scripts/install_plugins.sh")
+    os.system("sudo grub-mkconfig -o /boot/grub/grub.cfg")
 
 
 def main() -> None:
-    # uts_cmd = f"while true; do sudo -v; sleep 60; done &"
-    # uts_pro = sp.Popen(uts_cmd, shell=True, preexec_fn=os.setsid)
-
-    # opts
     install_programs()
     install_configs(symlink=False)
-    install_python_libs() 
+    install_python_libs()
     extra_config()
-
-    os.system("sudo grub-mkconfig -o /boot/grub/grub.cfg")
-
-    # os.killpg(os.getpgid(uts_pro.pid), signal.SIGTERM)
 
 
 main()
