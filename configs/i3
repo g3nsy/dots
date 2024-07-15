@@ -16,6 +16,7 @@ exec --no-startup-id picom -b
 exec --no-startup-id blueman-applet &
 
 for_window [instance="blueman-manager"] floating enable
+for_window [instance="blueman-manager"] move position center
 
 # -- personal scripts --
 exec --no-startup-id python ~/Codes/archlinux-config/scripts/alternating_layouts
