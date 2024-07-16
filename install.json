@@ -92,13 +92,14 @@
     "lightdm": "/etc/lightdm/lightdm-gtk-greeter.conf",
     "musikcube": ".config/musikcube/hotkeys.json",
     "nvim": ".config/nvim",
-    "rofi": ".config/rofi",
-    "polybar": ".config/polybar",
     "picom": ".config/picom/picom.conf",
     "pip": ".config/pip/pip.conf",
+    "polybar": ".config/polybar",
+    "rofi": ".config/rofi",
     "tmux": ".tmux.conf",
     "touchpad": "/etc/X11/xorg.conf.d/40-libinput.conf",
-    "vim": ".vimrc"
+    "vim": ".vimrc",
+    "wallpaper.png": "/usr/share/backgrounds/wallpaper.png"
   }
 
 }

@@ -36,7 +36,7 @@ def install_programs() -> None:
 
 
 def install_configs(symlink: bool = True) -> None:
-    base_cmd = f'cp -rv --remove-destination {"--symbolic-link" if symlink else ""}'
+    base_cmd = f'cp -rv --remove-destination'
     for src, dst in install_config["configs"].items():
         src_dir = os.path.join(HERE, "configs")
         dst_father = os.path.dirname(dst)
@@ -51,7 +51,7 @@ def install_configs(symlink: bool = True) -> None:
             os.system(f"mkdir -pv {dst_father}")
             if os.path.isdir(dst):
                 os.system(f"rm -rfv {dst}")
-            os.system(f"{base_cmd} {os.path.join(src_dir, src)} {dst}")
+            os.system(f"{base_cmd} {'--symbolic-link' if symlink else ''} {os.path.join(src_dir, src)} {dst}")
 
 
 def install_python_libs() -> None:
