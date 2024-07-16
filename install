@@ -49,6 +49,8 @@ def install_configs(symlink: bool = True) -> None:
             if not os.path.isabs(dst_father):
                 dst_father = os.path.join(HOME, dst_father)
             os.system(f"mkdir -pv {dst_father}")
+            if os.path.isdir(dst):
+                os.system(f"rm -rfv {dst}")
             os.system(f"{base_cmd} {os.path.join(src_dir, src)} {dst}")
 
 
