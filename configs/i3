@@ -1,11 +1,18 @@
 # -- i3 basic configurations --
 set $mod Mod4
 font pango:Hack Nerd Font 9
-for_window [class="^.*"] border pixel 4
+for_window [class="^.*"] border pixel 2
 gaps inner 13
 gaps outer 8
 set $refresh_i3status killall -SIGUSR1 i3status
 floating_modifier $mod
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #d0d0d0 #d0d0d0 #d0d0d0 #d0d0d0   #d0d0d0
+client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 # -- startup programs --
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -c 000000 --nofork
@@ -14,6 +21,8 @@ exec --no-startup-id dunst
 exec --no-startup-id sleep 2 && volumeicon
 exec --no-startup-id picom -b
 exec --no-startup-id blueman-applet &
+exec --no-startup-id alacritty --class pulsemixer --command pulsemixer
+exec --no-startup-id ~/.config/polybar/hack/launch.sh
 
 for_window [instance="blueman-manager"] floating enable
 for_window [instance="blueman-manager"] move position center
@@ -27,7 +36,7 @@ exec --no-startup-id python ~/Codes/archlinux-config/scripts/i3_screens_auto
 for_window [instance="terminal"] floating enable
 for_window [instance="terminal"] resize set 800 600
 for_window [instance="terminal"] move scratchpad
-for_window [instance="terminal"] border pixel 5
+for_window [instance="terminal"] border pixel 2
 bindsym $mod+t [instance="terminal"] scratchpad show; [instance="terminal"] move position center
 bindsym $mod+Shift+t exec --no-startup-id alacritty --class terminal
 
@@ -35,15 +44,14 @@ bindsym $mod+Shift+t exec --no-startup-id alacritty --class terminal
 for_window [instance="pulsemixer"] floating enable
 for_window [instance="pulsemixer"] resize set 800 300
 for_window [instance="pulsemixer"] move scratchpad
-for_window [instance="pulsemixer"] border pixel 5
+for_window [instance="pulsemixer"] border pixel 2
 bindsym $mod+a [instance="pulsemixer"] scratchpad show; [instance="pulsemixer"] move position center
-bindsym $mod+Shift+a exec --no-startup-id alacritty --class pulsemixer --command pulsemixer
 
 # -- scratchpad -- gpt --
 for_window [instance="gpt"] floating enable
 for_window [instance="gpt"] resize set 800 600
 for_window [instance="gpt"] move scratchpad
-for_window [instance="gpt"] border pixel 5
+for_window [instance="gpt"] border pixel 2
 bindsym $mod+g [instance="gpt"] scratchpad show; [instance="gpt"] move position center
 bindsym $mod+Shift+g exec --no-startup-id alacritty --class gpt --command tgpt -i
 
@@ -51,7 +59,7 @@ bindsym $mod+Shift+g exec --no-startup-id alacritty --class gpt --command tgpt -
 for_window [instance="musikcube"] floating enable
 for_window [instance="musikcube"] resize set 800 600
 for_window [instance="musikcube"] move scratchpad
-for_window [instance="musikcube"] border pixel 5
+for_window [instance="musikcube"] border pixel 2
 bindsym $mod+m [instance="musikcube"] scratchpad show; [instance="musikcube"] move position center
 bindsym $mod+Shift+m exec --no-startup-id alacritty --class musikcube --command musikcube
 
@@ -62,11 +70,14 @@ bindsym $mod+Shift+r restart
 bindsym $mod+f fullscreen toggle
 bindsym $mod+q kill
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m '' -b 'Yes, exit i3' 'i3-msg exit'"
+# bindsym $mod+s exec --no-startup-id ~/Codes/archlinux-config/scripts/polybar
 
 # -- bindsym -- programs --
-bindsym $mod+d exec i3-dmenu-desktop --dmenu='dmenu -i -fn 'Hack:pixelsize=14''
+# bindsym $mod+d exec i3-dmenu-desktop --dmenu='dmenu -i -fn 'Hack:pixelsize=14''
+bindsym $mod+d exec rofi -no-config -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/launcher.rasi
 bindsym $mod+b exec --no-startup-id firefox
 bindsym $mod+Return exec --no-startup-id alacritty
+bindsym $mod+n exec --no-startup-id alacritty --command nvim
 
 # -- bindsym -- screenshots
 bindsym $mod+p exec --no-startup-id maim --select "/home/$USER/Pictures/$(date).jpg"
@@ -157,10 +168,3 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
-
-# -- status bar --
-bar {
-    mode hide
-    status_command i3status
-    position bottom
-}

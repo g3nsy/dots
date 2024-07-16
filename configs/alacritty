@@ -1,19 +1,21 @@
-import = ["~/.config/alacritty/wombat.toml"]
+import = [
+  "/usr/lib/node_modules/alacritty-themes/themes/Default.dark.toml"
+]
 
 [cursor]
 blink_interval = 500
 unfocused_hollow = true
 
-[cursor.style]
-blinking = "On"
-shape = "Block"
+  [cursor.style]
+  blinking = "On"
+  shape = "Block"
 
 [font]
 size = 10
 
-[font.normal]
-family = "Hack Nerd Font"
-style = "Regular"
+  [font.normal]
+  family = "Hack Nerd Font"
+  style = "Regular"
 
 [[keyboard.bindings]]
 action = "Paste"
@@ -50,11 +52,11 @@ hide_when_typing = true
 
 [window]
 decorations = "Full"
-opacity = 1.0
+opacity = 1
 
-[window.padding]
-x = 3
-y = 3
+  [window.padding]
+  x = 3
+  y = 3
 
 [env]
 WINIT_X11_SCALE_FACTOR = "1.0"
