@@ -2,7 +2,6 @@
   "programs": [
     "acpi",
     "alacritty",
-    "arc-icon-theme",
     "base-devel",
     "bash-completion",
     "capitaine-cursors",
@@ -64,6 +63,7 @@
   "aur": [
     "alacritty-themes",
     "apvlv",
+    "kora-icon-theme",
     "macterial-gtk-theme",
     "musikcube-bin",
     "tgpt-bin"
