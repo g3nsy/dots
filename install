@@ -1,82 +1,75 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-import sys
-import os
-import json
-import shutil
+#!/bin/bash
 
+SCRIPT_DIR=$(realpath $(dirname $BASH_SOURCE))
 
-HOME = os.path.expanduser("~")
-HERE = os.path.dirname(os.path.abspath(__file__))
+AUR=$SCRIPT_DIR/aur
+PYTHON=$SCRIPT_DIR/python
+PACMAN=$SCRIPT_DIR/pacman
+UCONFIG=$SCRIPT_DIR/uconfig
+SCONFIG=$SCRIPT_DIR/sconfig
+CONFIGS=$SCRIPT_DIR/configs
 
+check_files_presence() {
+  for file in "$@"; do
+    if [ ! -f $file ]; then
+      echo "Missing required file: $file" >&2
+      exit 1
+    fi
+  done
+}
 
-with open(os.path.join(HERE, "install.json"), mode="r", encoding="UTF-8") as f:
-    install_config = json.load(f)
+check_files_presence $AUR $PACMAN $PYTHON $UCONFIG $SCONFIG
 
+if [ ! -d $CONFIGS ]; then
+  echo "Missing configuration files: $CONFIGS" >&2
+  exit 1
+fi
 
-def install_programs() -> None:
-    os.system(
-        f'sudo pacman -S {" ".join(install_config["programs"])} '
-        '--needed --noconfirm --overwrite "*"'
-    )
+sudo pacman -S --needed --noconfirm --overwrite "*" - <$PACMAN
 
-    if shutil.which("yay") is None:
-        yay_path = os.path.join(HERE, "yay")
-        if os.path.exists(yay_path):
-            os.system(f"rm -rfv {yay_path}")
-        os.system(
-            f"git clone https://aur.archlinux.org/yay.git {yay_path} "
-            f"&& cd {yay_path} && makepkg -si && rm -rfv {yay_path}"
-        )
+if ! [ $? -eq 0 ]; then
+  exit 1
+fi
 
-    os.system(
-        f'yay -S {" ".join(install_config["aur"])} '
-        '--needed --noconfirm'
-    )
+if ! type yay 2>/dev/null; then
+  YAY_CLONE_PATH=$SCRIPT_DIR/yay
+  YAY_REPO_URL=https://aur.archlinux.org/yay-bin.git
 
+  if [ -f $YAY_CLONE_PATH ]; then
+    rm -rf $YAY_CLONE_PATH
+  fi
 
-def install_configs(symlink: bool = True) -> None:
-    base_cmd = f'cp -rv --remove-destination'
-    for src, dst in install_config["configs"].items():
-        src_dir = os.path.join(HERE, "configs")
-        dst_father = os.path.dirname(dst)
-        if dst.startswith("/"):
-            os.system(f"sudo mkdir -pv {dst_father}")
-            os.system(f"sudo {base_cmd} {os.path.join(src_dir, src)} {dst}")
-        else:
-            if not os.path.isabs(dst):
-                dst = os.path.join(HOME, dst)
-            if not os.path.isabs(dst_father):
-                dst_father = os.path.join(HOME, dst_father)
-            os.system(f"mkdir -pv {dst_father}")
-            if os.path.isdir(dst):
-                os.system(f"rm -rfv {dst}")
-            os.system(f"{base_cmd} {'--symbolic-link' if symlink else ''} {os.path.join(src_dir, src)} {dst}")
+  git clone $YAY_REPO_URL $YAY_CLONE_PATH &&
+    cd $YAY_CLONE_PATH &&
+    makepkg -si --clean --noconfirm &&
+    cd .. &&
+    rm -rfv $YAY_CLONE_PATH &&
+    yay -S --needed --noconfirm - <$AUR
+fi
 
+# user configuratoin files
+while IFS=: read -r filename destination; do
+  SRC=$CONFIGS/$filename
+  DST=~/$destination
+  DST_PARENT_NODE=$(dirname $DST)
+  mkdir -pv $DST_PARENT_NODE
+  if [ -d $DST ]; then
+    rm -rfv $DST
+  fi
+  cp -rv --remove-destination --symbolic-link $SRC $DST
+done <"$UCONFIG"
 
-def install_python_libs() -> None:
-    os.system(f"pip install {' '.join(install_config['python'])}")
+# system wide configuration files
+while IFS=: read -r filename destination; do
+  SRC=$CONFIGS/$filename
+  DST_PARENT_NODE=$(dirname $destination)
+  sudo mkdir -pv $DST_PARENT_NODE
+  sudo cp -rv --remove-destination $SRC $destination
+done <"$SCONFIG"
 
+pip install -r $PYTHON
 
-def extra_config() -> None:
-    os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
-    os.system("~/.tmux/plugins/tpm/scripts/install_plugins.sh")
-    os.system("sudo grub-mkconfig -o /boot/grub/grub.cfg")
+git clone https://github.com/tmux-plugins/tmp ~/.tmux/plugins/tpm &&
+  ~/.tmux/plugins/tpm/scripts/install_plugins.sh
 
-
-def main() -> None:
-    if len(sys.argv) > 1:
-        if sys.argv[1] in ("-s", "--symlink"):
-            symlink = True
-        else:
-            print(f"Invalid argument: {sys.argv[1]}")
-            sys.exit(1)
-    else:
-        symlink = False
-    install_programs()
-    install_configs(symlink=symlink)
-    install_python_libs()
-    extra_config()
-
-
-main()
+sudo grub-mkconfig -o /boot/grub/grub.cfg
