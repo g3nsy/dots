@@ -65,7 +65,7 @@ while IFS=: read -r filename destination; do
   if [ -d $DST ]; then
     rm -rfv $DST
   fi
-  if [ "$1" = "--symlink" ] || [ "$1" = "-s" ]; then
+  if [ $1 ]; then
     cp -rv --remove-destination --symbolic-link $SRC $DST
   else
     cp -rv --remove-destination $SRC $DST
