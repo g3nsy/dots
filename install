@@ -1,44 +1,52 @@
 #!/bin/bash
 
-SCRIPT_DIR=$(realpath $(dirname $BASH_SOURCE))
-CONFIGS=$SCRIPT_DIR/configs
-LISTS_DIR=$SCRIPT_DIR/lists
-AUR=$LISTS_DIR/aur
-PYTHON=$LISTS_DIR/python
-PACMAN=$LISTS_DIR/pacman
-UCONFIG=$LISTS_DIR/uconfig
-SCONFIG=$LISTS_DIR/sconfig
+# Linux system installer
+# Author: Simone Gentili (g3nsy)
 
+# Command-line arguments check
+if [ "$#" -gt 1 ]; then
+  echo "Too many arguments" >&2
+  exit 1
+fi
+if [ "$#" -eq 1 ] && ! [ "$1" = "--symlink" ] && ! [ "$1" = "-s" ]; then
+  echo "Invalid parameter: $1" >&2
+  exit 1
+fi
+
+# Some important variables
+SCRIPT_DIR=$(realpath $(dirname $0))
+CONFIGS=$SCRIPT_DIR/configs # Where all the config files reside
+LISTS_DIR=$SCRIPT_DIR/lists # Where all the list reside
+AUR=$LISTS_DIR/aur          # AUR pkgs list
+PYTHON=$LISTS_DIR/python    # Python pkgs list
+PACMAN=$LISTS_DIR/pacman    # Pacman pkgs list
+UCONFIG=$LISTS_DIR/uconfig  # User records
+SCONFIG=$LISTS_DIR/sconfig  # System-wide records
+
+# Check required files
 check_files_presence() {
   for file in "$@"; do
-    if [ ! -f $file ]; then
+    if [ ! -e $file ]; then
       echo "Missing required file: $file" >&2
       exit 1
     fi
   done
 }
+check_files_presence $AUR $PACMAN $PYTHON $UCONFIG $SCONFIG $CONFIGS
 
-check_files_presence $AUR $PACMAN $PYTHON $UCONFIG $SCONFIG
-
-if [ ! -d $CONFIGS ]; then
-  echo "Missing configuration files: $CONFIGS" >&2
-  exit 1
-fi
-
+# Install pkgs using pacman and if it fails exit with code 1
 sudo pacman -S --needed --noconfirm --overwrite "*" - <$PACMAN
-
 if ! [ $? -eq 0 ]; then
   exit 1
 fi
 
+# Install yay and AUR packages
 if ! type yay 2>/dev/null; then
   YAY_CLONE_PATH=$SCRIPT_DIR/yay
   YAY_REPO_URL=https://aur.archlinux.org/yay-bin.git
-
   if [ -f $YAY_CLONE_PATH ]; then
     rm -rfv $YAY_CLONE_PATH
   fi
-
   git clone $YAY_REPO_URL $YAY_CLONE_PATH &&
     cd $YAY_CLONE_PATH &&
     makepkg -si --clean --noconfirm &&
@@ -47,27 +55,23 @@ if ! type yay 2>/dev/null; then
     yay -S --needed --noconfirm - <$AUR
 fi
 
-# user configuratoin files
+# Copy configuration files
+# Copy user configuration files (make symbolic link if requested)
 while IFS=: read -r filename destination; do
   SRC=$CONFIGS/$filename
   DST=~/$destination
   DST_PARENT_NODE=$(dirname $DST)
-
   mkdir -pv $DST_PARENT_NODE
-
   if [ -d $DST ]; then
     rm -rfv $DST
   fi
-
   if [ "$1" = "--symlink" ] || [ "$1" = "-s" ]; then
     cp -rv --remove-destination --symbolic-link $SRC $DST
   else
     cp -rv --remove-destination $SRC $DST
   fi
-
 done <"$UCONFIG"
-
-# system wide configuration files
+# Copy system-wide configuration files
 while IFS=: read -r filename destination; do
   SRC=$CONFIGS/$filename
   DST_PARENT_NODE=$(dirname $destination)
@@ -76,8 +80,6 @@ while IFS=: read -r filename destination; do
 done <"$SCONFIG"
 
 pip install -r $PYTHON
-
 git clone https://github.com/tmux-plugins/tmp ~/.tmux/plugins/tpm &&
   ~/.tmux/plugins/tpm/scripts/install_plugins.sh
-
 sudo grub-mkconfig -o /boot/grub/grub.cfg

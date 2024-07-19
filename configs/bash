@@ -34,9 +34,6 @@ alias paclean='pacman -Qtdq | sudo pacman -Rns -'
 alias wlan0-on='iwctl device wlan0 set-property Powered on'
 alias wlan0-off='iwctl device wlan0 set-property Powered off'
 alias config='cd ~/Codes/dots; nvim +Telescope'
-alias install='sudo pacman -S'
-alias remove='sudo pacman -R'
-alias purge='sudo pacman -Rns'
 alias fastfetch='fastfetch --logo archlinux_small'
 alias nvim-remove='rm -rv\
   ~/.local/share/nvim\
@@ -62,5 +59,3 @@ export VISUAL=vim
 eval "$(starship init bash)"
 
 set -o vi
-
-fastfetch --logo archlinux_small
