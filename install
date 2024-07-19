@@ -1,13 +1,13 @@
 #!/bin/bash
 
 SCRIPT_DIR=$(realpath $(dirname $BASH_SOURCE))
-
-AUR=$SCRIPT_DIR/aur
-PYTHON=$SCRIPT_DIR/python
-PACMAN=$SCRIPT_DIR/pacman
-UCONFIG=$SCRIPT_DIR/uconfig
-SCONFIG=$SCRIPT_DIR/sconfig
 CONFIGS=$SCRIPT_DIR/configs
+LISTS_DIR=$SCRIPT_DIR/lists
+AUR=$LISTS_DIR/aur
+PYTHON=$LISTS_DIR/python
+PACMAN=$LISTS_DIR/pacman
+UCONFIG=$LISTS_DIR/uconfig
+SCONFIG=$LISTS_DIR/sconfig
 
 check_files_presence() {
   for file in "$@"; do
