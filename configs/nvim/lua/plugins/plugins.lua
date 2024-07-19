@@ -1,5 +1,13 @@
 return {
   {
+    "tribela/transparent.nvim",
+    event = "VimEnter",
+    config = true,
+  },
+  {
+    "alexghergh/nvim-tmux-navigation",
+  },
+  {
     "nvimdev/dashboard-nvim",
     event = "VimEnter",
     opts = function(_, opts)

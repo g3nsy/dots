@@ -46,6 +46,7 @@ for_window [instance="pulsemixer"] resize set 800 300
 for_window [instance="pulsemixer"] move scratchpad
 for_window [instance="pulsemixer"] border pixel 2
 bindsym $mod+a [instance="pulsemixer"] scratchpad show; [instance="pulsemixer"] move position center
+bindsym $mod+Shift+a exec --no-startup-id alacritty --class pulsemixer --command pulsemixer
 
 # -- scratchpad -- gpt --
 for_window [instance="gpt"] floating enable
