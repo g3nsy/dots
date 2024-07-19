@@ -28,9 +28,9 @@ for_window [instance="blueman-manager"] floating enable
 for_window [instance="blueman-manager"] move position center
 
 # -- personal scripts --
-exec --no-startup-id python ~/Codes/archlinux-config/scripts/alternating_layouts
-exec --no-startup-id ~/Codes/archlinux-config/scripts/battery
-exec --no-startup-id python ~/Codes/archlinux-config/scripts/i3_screens_auto
+exec --no-startup-id python ~/Codes/dots/scripts/alternating_layouts
+exec --no-startup-id ~/Codes/dots/scripts/battery
+exec --no-startup-id python ~/Codes/dots/scripts/i3_screens_auto
 
 # -- scratchpad -- terminal --
 for_window [instance="terminal"] floating enable
@@ -70,10 +70,8 @@ bindsym $mod+Shift+r restart
 bindsym $mod+f fullscreen toggle
 bindsym $mod+q kill
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m '' -b 'Yes, exit i3' 'i3-msg exit'"
-# bindsym $mod+s exec --no-startup-id ~/Codes/archlinux-config/scripts/polybar
 
 # -- bindsym -- programs --
-# bindsym $mod+d exec i3-dmenu-desktop --dmenu='dmenu -i -fn 'Hack:pixelsize=14''
 bindsym $mod+d exec rofi -no-config -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/launcher.rasi
 bindsym $mod+b exec --no-startup-id firefox
 bindsym $mod+Return exec --no-startup-id alacritty
