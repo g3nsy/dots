@@ -36,17 +36,13 @@ check_files_presence $AUR $PACMAN $PYTHON $UCONFIG $SCONFIG $CONFIGS
 
 # Install pkgs using pacman and if it fails exit with code 1
 sudo pacman -S --needed --noconfirm --overwrite "*" - <$PACMAN
-if ! [ $? -eq 0 ]; then
-  exit 1
-fi
+[ $? -ne 0 ] && exit 1
 
 # Install yay and AUR packages
 if ! type yay 2>/dev/null; then
   YAY_CLONE_PATH=$SCRIPT_DIR/yay
   YAY_REPO_URL=https://aur.archlinux.org/yay-bin.git
-  if [ -f $YAY_CLONE_PATH ]; then
-    rm -rfv $YAY_CLONE_PATH
-  fi
+  [ -e $YAY_CLONE_PATH ] && rm -rfv $YAY_CLONE_PATH
   git clone $YAY_REPO_URL $YAY_CLONE_PATH &&
     cd $YAY_CLONE_PATH &&
     makepkg -si --clean --noconfirm &&
@@ -62,14 +58,8 @@ while IFS=: read -r filename destination; do
   DST=~/$destination
   DST_PARENT_NODE=$(dirname $DST)
   mkdir -pv $DST_PARENT_NODE
-  if [ -d $DST ]; then
-    rm -rfv $DST
-  fi
-  if [ $1 ]; then
-    cp -rv --remove-destination --symbolic-link $SRC $DST
-  else
-    cp -rv --remove-destination $SRC $DST
-  fi
+  [ -e $DST ] && rm -rfv $DST
+  [ $1 ] && cp -rv --symbolic-link $SRC $DST || cp -rv $SRC $DST
 done <"$UCONFIG"
 # Copy system-wide configuration files
 while IFS=: read -r filename destination; do
@@ -79,7 +69,7 @@ while IFS=: read -r filename destination; do
   sudo cp -rv --remove-destination $SRC $destination
 done <"$SCONFIG"
 
-pip install -r $PYTHON
+pip install -qr $PYTHON
 git clone https://github.com/tmux-plugins/tmp ~/.tmux/plugins/tpm &&
   ~/.tmux/plugins/tpm/scripts/install_plugins.sh
 sudo grub-mkconfig -o /boot/grub/grub.cfg
