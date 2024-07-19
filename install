@@ -3,27 +3,23 @@
 # Linux system installer
 # Author: Simone Gentili (g3nsy)
 
-# Command-line arguments check
 if [ "$#" -gt 1 ]; then
   echo "Too many arguments" >&2
   exit 1
 fi
-
 if [ "$#" -eq 1 ] && ! [ "$1" = "--symbolic-link" ] && ! [ "$1" = "-s" ]; then
   echo "Invalid parameter: $1" >&2
   exit 1
 fi
 
-# Some important variables
 SCRIPT_DIR=$(realpath $(dirname $0))
-
-CONFIGS=$SCRIPT_DIR/configs # Where all the config files reside
-LISTS_DIR=$SCRIPT_DIR/lists # Where all the list reside
-AUR=$LISTS_DIR/aur          # AUR pkgs list
-PYTHON=$LISTS_DIR/python    # Python pkgs list
-PACMAN=$LISTS_DIR/pacman    # Pacman pkgs list
-UCONFIG=$LISTS_DIR/uconfig  # User records
-SCONFIG=$LISTS_DIR/sconfig  # System-wide records
+CONFIGS=$SCRIPT_DIR/configs
+LISTS_DIR=$SCRIPT_DIR/lists
+AUR=$LISTS_DIR/aur
+PYTHON=$LISTS_DIR/python
+PACMAN=$LISTS_DIR/pacman
+UCONFIG=$LISTS_DIR/uconfig
+SCONFIG=$LISTS_DIR/sconfig
 
 for file in $AUR $PACMAN $PYTHON $UCONFIG $SCONFIG $CONFIGS; do
   if [ ! -e $file ]; then
@@ -32,11 +28,9 @@ for file in $AUR $PACMAN $PYTHON $UCONFIG $SCONFIG $CONFIGS; do
   fi
 done
 
-# Install pkgs using pacman and if it fails exit with code 1
 sudo pacman -S --needed --noconfirm --overwrite "*" - <$PACMAN
 [ $? -ne 0 ] && exit 1
 
-# Install yay and AUR packages
 if ! type yay 2>/dev/null; then
   YAY_CLONE_PATH=$SCRIPT_DIR/yay
   YAY_REPO_URL=https://aur.archlinux.org/yay-bin.git
@@ -49,8 +43,6 @@ if ! type yay 2>/dev/null; then
     yay -S --needed --noconfirm - <$AUR
 fi
 
-# Copy configuration files
-# Copy user configuration files (make symbolic link if requested)
 while IFS=: read -r filename destination; do
   SRC=$CONFIGS/$filename
   DST=~/$destination
