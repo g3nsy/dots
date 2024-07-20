@@ -43,15 +43,16 @@ if ! type yay 2>/dev/null; then
     yay -S --needed --noconfirm - <$AUR
 fi
 
+# User configuration files
 while IFS=: read -r filename destination; do
   SRC=$CONFIGS/$filename
   DST=~/$destination
   DST_PARENT_NODE=$(dirname $DST)
   mkdir -pv $DST_PARENT_NODE
   [ -e $DST ] && rm -rfv $DST
-  cp -rv $1 $SRC $DST
+  cp -rv $1 $SRC $DST # $1: --symbolic-link or -s or empty string
 done <"$UCONFIG"
-# Copy system-wide configuration files
+# System-wide configuration files
 while IFS=: read -r filename destination; do
   SRC=$CONFIGS/$filename
   DST_PARENT_NODE=$(dirname $destination)
