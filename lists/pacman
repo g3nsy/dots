@@ -34,7 +34,6 @@ polybar
 pulsemixer
 pyright
 python-pip
-qbittorrent
 ripgrep
 rofi
 ruby
@@ -46,6 +45,7 @@ syncthing
 tcl
 tmux
 torbrowser-launcher
+transmission-cli
 ttf-hack-nerd
 udisks2
 unrar
