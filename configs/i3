@@ -72,6 +72,10 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+q kill
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m '' -b 'Yes, exit i3' 'i3-msg exit'"
 
+# -- bindsym -- brightness --
+bindsym XF86MonBrightnessUp exec ~/Codes/dots/scripts/brightness -i
+bindsym XF86MonBrightnessDown exec ~/Codes/dots/scripts/brightness -d
+
 # -- bindsym -- programs --
 bindsym $mod+d exec rofi -no-config -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/launcher.rasi
 bindsym $mod+b exec --no-startup-id firefox

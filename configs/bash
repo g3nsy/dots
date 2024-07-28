@@ -35,6 +35,7 @@ alias wlan0-on='iwctl device wlan0 set-property Powered on'
 alias wlan0-off='iwctl device wlan0 set-property Powered off'
 alias config='cd ~/Codes/dots; nvim +Telescope'
 alias fastfetch='fastfetch --logo archlinux_small'
+alias ftp='sftp server'
 alias nvim-remove='rm -rv\
   ~/.local/share/nvim\
   ~/.local/state/nvim\
