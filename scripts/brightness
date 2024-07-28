@@ -1,0 +1,16 @@
+#!/bin/bash
+
+FACTOR=100
+BFILE=/sys/class/backlight/amdgpu_bl2/brightness
+BVALUE=$(cat $BFILE)
+
+if [ "$1" = "-i" ]; then
+  [ $BVALUE -eq 255 ] && echo "Error -i" || BVALUE=$(($BVALUE + $FACTOR))
+  [ $BVALUE -gt 255 ] && echo 255 >$BFILE || echo $BVALUE >$BFILE
+elif [ "$1" = "-d" ]; then
+  [ $BVALUE -eq 0 ] && echo "Error -d" || BVALUE=$(($BVALUE - $FACTOR))
+  [ $BVALUE -lt 0 ] && echo 0 >$BFILE || echo $BVALUE >$BFILE
+else
+  echo "Missing argument" >&2
+  exit 1
+fi
