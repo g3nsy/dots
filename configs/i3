@@ -73,8 +73,8 @@ bindsym $mod+q kill
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m '' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # -- bindsym -- brightness --
-bindsym XF86MonBrightnessUp exec ~/Codes/dots/scripts/brightness -i
-bindsym XF86MonBrightnessDown exec ~/Codes/dots/scripts/brightness -d
+bindsym XF86MonBrightnessUp exec brightnessctl set +100
+bindsym XF86MonBrightnessDown exec brightnessctl set 100-
 
 # -- bindsym -- programs --
 bindsym $mod+d exec rofi -no-config -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/launcher.rasi
