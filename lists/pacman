@@ -14,6 +14,7 @@ ffmpeg
 firefox
 flake8
 git
+gvfs
 i3
 jdk-openjdk
 keepassxc
@@ -43,6 +44,8 @@ sox
 starship
 syncthing
 tcl
+thunar
+thunar-volman
 tmux
 torbrowser-launcher
 transmission-cli
