@@ -2,6 +2,7 @@ acpi
 alacritty
 base-devel
 bash-completion
+brightnessctl
 capitaine-cursors
 clang
 cmake
