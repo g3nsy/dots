@@ -34,7 +34,9 @@ alias paclean='pacman -Qtdq | sudo pacman -Rns -'
 alias wlan0-on='iwctl device wlan0 set-property Powered on'
 alias wlan0-off='iwctl device wlan0 set-property Powered off'
 alias fastfetch='fastfetch --logo archlinux_small'
-alias ftp='sftp server'
+alias ftp='sftp'
+alias df='df -h'
+alias du='du -h'
 alias nvim-remove='rm -rv\
   ~/.local/share/nvim\
   ~/.local/state/nvim\
