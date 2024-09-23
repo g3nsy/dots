@@ -7,12 +7,12 @@ fi
 
 USER=g3nsy
 SERVER=github.com
-CODES=~/Codes
-REPOS=$(ls $CODES)
+CODE=~/Code
+REPOS=$(ls $CODE)
 DEFAULT_SEVER_NAME="origin"
 
 for repo_name in $REPOS; do
-  repo_path=$CODES/$repo_name
+  repo_path=$CODE/$repo_name
   server_name=$(git -C $repo_path remote)
   if ! [ $server_name ]; then
     command="git -C $repo_path remote add $DEFAULT_SEVER_NAME"
