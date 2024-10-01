@@ -7,7 +7,7 @@ fi
 
 USER=g3nsy
 SERVER=github.com
-CODE=~/Code
+CODE=~/Codes
 REPOS=$(ls $CODE)
 DEFAULT_SEVER_NAME="origin"
 
